@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -38,113 +39,54 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Switch
+        android:id="@+id/switch1"
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:orientation="horizontal">
+        android:paddingStart="16dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:switchMinWidth="56dp"
+        android:textSize="16sp"
+        android:textColor="@color/menu_item_text_color"
+        android:text="@string/dark_theme"
+        tools:ignore="InefficientWeight,UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="6dp"
-            android:paddingTop="21dp"
-            android:paddingBottom="21dp"
-            android:switchMinWidth="56dp"
-            android:textSize="16sp"
-            android:textColor="@color/menu_item_text_color"
-            android:text="@string/dark_theme"
-            tools:ignore="InefficientWeight,UseSwitchCompatOrMaterialXml" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:orientation="horizontal">
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/share_button_icon"
+        android:textColor="@color/menu_item_text_color"
+        android:text="@string/share_menu_item" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="21dp"
-            android:paddingBottom="21dp"
-            android:textSize="16sp"
-            android:textColor="@color/menu_item_text_color"
-            android:text="@string/share_menu_item" />
-
-        <ImageButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="18dp"
-            android:backgroundTint="@color/menu_item_background"
-            android:src="@drawable/share_button_icon"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:orientation="horizontal">
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/support_button_icon"
+        android:textColor="@color/menu_item_text_color"
+        android:text="@string/support_menu_item" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="21dp"
-            android:paddingBottom="21dp"
-            android:textSize="16sp"
-            android:textColor="@color/menu_item_text_color"
-            android:text="@string/support_menu_item" />
-
-        <ImageButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="18dp"
-            android:backgroundTint="@color/menu_item_background"
-            android:src="@drawable/support_button_icon"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="21dp"
-            android:paddingBottom="21dp"
-            android:textSize="16sp"
-            android:textColor="@color/menu_item_text_color"
-            android:text="@string/user_agreement_menu_item" />
-
-        <ImageButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="18dp"
-            android:backgroundTint="@color/menu_item_background"
-            android:src="@drawable/arrow_forward_button_icon"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
+        android:paddingStart="16dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/arrow_forward_button_icon"
+        android:textColor="@color/menu_item_text_color"
+        android:text="@string/user_agreement_menu_item" />
 
 </LinearLayout>
