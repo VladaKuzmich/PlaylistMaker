@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTint="@color/menu_item_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:padding="12dp"
+            android:backgroundTint="@color/menu_item_background"
+            android:src="@drawable/back_icon"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginTop="4dp"
+            android:paddingTop="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="8dp"
+            android:textAlignment="textStart"
+            android:textSize="22sp"
+            android:textColor="@color/menu_item_text_color"
+            android:text="@string/settings_header" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:switchMinWidth="56dp"
+            android:textSize="16sp"
+            android:textColor="@color/menu_item_text_color"
+            android:text="@string/dark_theme"
+            tools:ignore="InefficientWeight,UseSwitchCompatOrMaterialXml" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/menu_item_text_color"
+            android:text="@string/share_menu_item" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/menu_item_background"
+            android:src="@drawable/share_button_icon"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/menu_item_text_color"
+            android:text="@string/support_menu_item" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/menu_item_background"
+            android:src="@drawable/support_button_icon"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/menu_item_text_color"
+            android:text="@string/user_agreement_menu_item" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/menu_item_background"
+            android:src="@drawable/arrow_forward_button_icon"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+</LinearLayout>
