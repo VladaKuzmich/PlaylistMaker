@@ -6,8 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:backgroundTint="@color/menu_item_background">
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,73 +20,47 @@
             android:layout_marginTop="4dp"
             android:layout_marginStart="4dp"
             android:padding="12dp"
-            android:backgroundTint="@color/menu_item_background"
             android:src="@drawable/back_icon"
+            app:tint="?attr/colorOnPrimary"
+            android:backgroundTint="@android:color/transparent"
             tools:ignore="ContentDescription" />
 
         <TextView
+            style="@style/ActivityHeader"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginTop="4dp"
-            android:paddingTop="10dp"
-            android:paddingStart="12dp"
             android:paddingEnd="8dp"
-            android:textAlignment="textStart"
-            android:textSize="22sp"
-            android:textColor="@color/menu_item_text_color"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/settings_header" />
 
     </LinearLayout>
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:paddingStart="16dp"
+        style="@style/SettingsMenuItem"
+        android:thumbTint="?attr/colorSecondaryVariant"
+        android:trackTint="?attr/colorSecondaryVariant"
         android:paddingEnd="6dp"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
         android:switchMinWidth="56dp"
-        android:textSize="16sp"
-        android:textColor="@color/menu_item_text_color"
         android:text="@string/dark_theme"
         tools:ignore="InefficientWeight,UseSwitchCompatOrMaterialXml" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
-        android:textSize="16sp"
+        style="@style/SettingsMenuItem"
         app:drawableEndCompat="@drawable/share_button_icon"
-        android:textColor="@color/menu_item_text_color"
         android:text="@string/share_menu_item" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
-        android:textSize="16sp"
+        style="@style/SettingsMenuItem"
         app:drawableEndCompat="@drawable/support_button_icon"
-        android:textColor="@color/menu_item_text_color"
         android:text="@string/support_menu_item" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:paddingStart="16dp"
+        style="@style/SettingsMenuItem"
         android:paddingEnd="20dp"
-        android:paddingTop="21dp"
-        android:paddingBottom="21dp"
-        android:textSize="16sp"
         app:drawableEndCompat="@drawable/arrow_forward_button_icon"
-        android:textColor="@color/menu_item_text_color"
         android:text="@string/user_agreement_menu_item" />
 
 </LinearLayout>
