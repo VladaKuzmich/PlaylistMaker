@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_activity_text_size">22sp</dimen>
+    <dimen name="main_activity_icon_padding">8dp</dimen>
+    <dimen name="main_activity_menu_corner_radius">16dp</dimen>
+    <dimen name="main_activity_menu_item_margin">16dp</dimen>
+</resources>
