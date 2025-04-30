@@ -9,4 +9,12 @@
 
         <item name="background">@color/blackish_blue</item>
     </style>
+
+    <style name="SearchEditText">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/blackish_blue</item>
+        <item name="android:textColorHint">@color/blackish_blue</item>
+        <item name="android:drawableTint">@color/blackish_blue</item>
+        <item name="android:tint">@color/blackish_blue</item>
+    </style>
 </resources>
