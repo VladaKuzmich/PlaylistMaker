@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/blackish_blue</item>
 
-        <item name="background">@color/blackish_blue</item>
+        <item name="android:windowBackground">@color/blackish_blue</item>
     </style>
 
     <style name="SearchEditText">

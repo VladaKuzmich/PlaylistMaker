@@ -35,7 +35,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         style="@style/SearchEditText"
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -48,10 +48,12 @@
             style="@style/SearchEditText"
             android:id="@+id/search_edit_text"
             android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="12dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="start"
+            android:paddingTop="9dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="40dp"
             android:drawablePadding="8dp"
             android:hint="@string/search"
             android:maxLines="1"
@@ -68,12 +70,13 @@
             android:id="@+id/clear_search"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:scaleType="center"
             android:src="@drawable/clear_button_icon"
             android:visibility="gone"
             tools:ignore="ContentDescription" />
 
-    </LinearLayout>
+    </FrameLayout >
 
 
 </LinearLayout>

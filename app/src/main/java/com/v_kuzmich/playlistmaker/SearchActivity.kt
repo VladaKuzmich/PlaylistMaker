@@ -9,17 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class SearchActivity : AppCompatActivity() {
-
-    companion object {
-        const val SEARCH_TEXT = "SEARCH_TEXT"
-        const val SEARCH_TEXT_DEFAULT = ""
-    }
 
     private var searchText: String = SEARCH_TEXT_DEFAULT
     private lateinit var searchEditText: EditText
@@ -79,5 +71,10 @@ class SearchActivity : AppCompatActivity() {
         } else {
             View.VISIBLE
         }
+    }
+
+    companion object {
+        private const val SEARCH_TEXT = "SEARCH_TEXT"
+        private const val SEARCH_TEXT_DEFAULT = ""
     }
 }
