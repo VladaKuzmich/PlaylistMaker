@@ -10,12 +10,23 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="SearchEditText">
+    <style name="SearchEditText" parent="@style/RegularTextFont">
         <item name="android:backgroundTint">@color/light_gray</item>
         <item name="android:textColor">@color/blackish_blue</item>
         <item name="android:textColorHint">@color/gray</item>
         <item name="android:drawableTint">@color/gray</item>
         <item name="android:tint">@color/gray</item>
+    </style>
+
+    <style name="SearchItemHeader" parent="@style/RegularTextFont">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SearchItemSubHeader" parent="@style/RegularTextFont">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:tint">@color/gray</item>
+        <item name="drawableTint">@color/gray</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />

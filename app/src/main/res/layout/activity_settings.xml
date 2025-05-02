@@ -64,7 +64,7 @@
         android:id="@+id/user_agreement"
         style="@style/SettingsMenuItem"
         android:paddingEnd="20dp"
-        app:drawableEndCompat="@drawable/user_agreement_button_icon"
+        app:drawableEndCompat="@drawable/arrow_icon"
         android:text="@string/user_agreement_menu_item" />
 
 </LinearLayout>

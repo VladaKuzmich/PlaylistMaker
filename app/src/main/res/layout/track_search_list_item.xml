@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/rootLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="61dp"
+    android:orientation="horizontal"
+    android:paddingStart="13dp"
+    android:paddingEnd="12dp"
+    android:paddingVertical="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/artwork"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/placeholder"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/SearchItemHeader"
+            android:id="@+id/trackName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="@string/tools_text_track_name" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SearchItemSubHeader"
+                android:id="@+id/artistName"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="@string/tools_text_track_artist" />
+
+            <TextView
+                style="@style/SearchItemSubHeader"
+                android:id="@+id/trackTime"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:drawablePadding="5dp"
+                app:drawableStartCompat="@drawable/ellipse_separator"
+                tools:text="@string/tools_text_track_time"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        style="@style/SearchItemSubHeader"
+        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:scaleType="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/arrow_icon"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>
