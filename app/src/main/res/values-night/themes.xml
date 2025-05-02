@@ -1,7 +1,20 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/blackish_blue</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorSecondaryVariant">@color/blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/blackish_blue</item>
+
+        <item name="android:windowBackground">@color/blackish_blue</item>
+    </style>
+
+    <style name="SearchEditText">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/blackish_blue</item>
+        <item name="android:textColorHint">@color/blackish_blue</item>
+        <item name="android:drawableTint">@color/blackish_blue</item>
+        <item name="android:tint">@color/blackish_blue</item>
     </style>
 </resources>

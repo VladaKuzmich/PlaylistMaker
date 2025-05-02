@@ -4,15 +4,14 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:backgroundTint="@color/menu_item_background">
+    android:orientation="vertical" >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:paddingTop="15dp"
         android:textSize="22sp"
-        android:textColor="@color/menu_item_text_color"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/media_library_activity_header" />
 
 </LinearLayout>
