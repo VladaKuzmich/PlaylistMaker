@@ -4,4 +4,24 @@
     <dimen name="main_activity_icon_padding">8dp</dimen>
     <dimen name="main_activity_menu_corner_radius">16dp</dimen>
     <dimen name="main_activity_menu_item_margin">16dp</dimen>
+    <dimen name="search_header_line_height">56dp</dimen>
+    <dimen name="search_header_margin">4dp</dimen>
+    <dimen name="search_header_height">48dp</dimen>
+    <dimen name="search_back_btn_width">48dp</dimen>
+    <dimen name="search_layout_margin">16dp</dimen>
+    <dimen name="search_edit_height">36dp</dimen>
+    <dimen name="search_edit_margin">8dp</dimen>
+    <dimen name="search_edit_padding">8dp</dimen>
+    <dimen name="search_edit_padding_top">9dp</dimen>
+    <dimen name="search_edit_padding_start">12dp</dimen>
+    <dimen name="search_clear_btn_width">40dp</dimen>
+    <dimen name="track_list_item_count">10</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="track_img_size">45dp</dimen>
+    <dimen name="track_list_separator_padding">5dp</dimen>
+    <dimen name="track_list_item_header_margin">8dp</dimen>
+    <dimen name="track_list_arrow_size">24dp</dimen>
+    <dimen name="track_list_item_height">61dp</dimen>
+    <dimen name="track_list_item_padding_start">13dp</dimen>
+    <dimen name="track_list_item_padding_end">12dp</dimen>
 </resources>

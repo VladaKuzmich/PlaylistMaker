@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="61dp"
+    android:layout_height="@dimen/track_list_item_height"
     android:orientation="horizontal"
-    android:paddingStart="13dp"
-    android:paddingEnd="12dp"
-    android:paddingVertical="8dp"
+    android:paddingStart="@dimen/track_list_item_padding_start"
+    android:paddingEnd="@dimen/track_list_item_padding_end"
+    android:paddingVertical="@dimen/track_list_item_header_margin"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/artwork"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="@dimen/track_img_size"
+        android:layout_height="@dimen/track_img_size"
         android:src="@drawable/placeholder"
         tools:ignore="ContentDescription" />
 
@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/track_list_item_header_margin"
         android:orientation="vertical">
 
         <TextView
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="@dimen/track_list_separator_padding"
                 android:maxLines="1"
                 android:ellipsize="end"
                 tools:text="@string/tools_text_track_artist" />
@@ -57,7 +57,7 @@
                 android:id="@+id/trackTime"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/track_list_separator_padding"
                 app:drawableStartCompat="@drawable/ellipse_separator"
                 tools:text="@string/tools_text_track_time"/>
 
@@ -68,11 +68,11 @@
 
     <ImageView
         style="@style/SearchItemSubHeader"
-        android:layout_height="24dp"
-        android:layout_width="24dp"
+        android:layout_height="@dimen/track_list_arrow_size"
+        android:layout_width="@dimen/track_list_arrow_size"
         android:scaleType="center"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/track_list_item_header_margin"
         android:src="@drawable/arrow_icon"
         tools:ignore="ContentDescription" />
 
