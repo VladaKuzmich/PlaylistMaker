@@ -10,6 +10,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.v_kuzmich.playlistmaker.dal.adapter.TrackAdapter
+import com.v_kuzmich.playlistmaker.dal.model.Track
 
 class SearchActivity : AppCompatActivity() {
 
@@ -51,6 +54,8 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         searchEditText.addTextChangedListener(textWatcher)
+
+        fillTrackList()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -63,6 +68,21 @@ class SearchActivity : AppCompatActivity() {
         searchText = savedInstanceState.getString(SEARCH_TEXT, SEARCH_TEXT_DEFAULT)
 
         searchEditText.setText(searchText)
+    }
+
+    private fun fillTrackList() {
+        val trackAdapter = TrackAdapter(
+            listOf(
+                Track(getString(R.string.track_name_1), getString(R.string.artist_name_1), getString(R.string.track_time_1), getString(R.string.track_artwork_1)),
+                Track(getString(R.string.track_name_2), getString(R.string.artist_name_2), getString(R.string.track_time_2), getString(R.string.track_artwork_2)),
+                Track(getString(R.string.track_name_3), getString(R.string.artist_name_3), getString(R.string.track_time_3), getString(R.string.track_artwork_3)),
+                Track(getString(R.string.track_name_4), getString(R.string.artist_name_4), getString(R.string.track_time_4), getString(R.string.track_artwork_4)),
+                Track(getString(R.string.track_name_5), getString(R.string.artist_name_5), getString(R.string.track_time_5), getString(R.string.track_artwork_5)),
+            )
+        )
+
+        val trackList = findViewById<RecyclerView>(R.id.track_list)
+        trackList.adapter = trackAdapter
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {

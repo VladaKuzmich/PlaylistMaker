@@ -10,15 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/search_header_line_height"
+        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/search_header_margin"
+        android:layout_marginStart="@dimen/search_header_margin" >
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginVertical="4dp"
-            android:layout_marginStart="4dp"
+            android:layout_width="@dimen/search_back_btn_width"
+            android:layout_height="@dimen/search_header_height"
             android:src="@drawable/back_icon"
             android:backgroundTint="@android:color/transparent"
             app:tint="?attr/colorOnPrimary"
@@ -27,9 +27,8 @@
         <TextView
             style="@style/ActivityHeader"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/search_header_height"
             android:layout_weight="1"
-            android:layout_marginVertical="4dp"
             android:textColor="?attr/colorOnPrimary"
             android:text="@string/search_activity_header" />
 
@@ -38,10 +37,10 @@
     <FrameLayout
         style="@style/SearchEditText"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="@dimen/search_edit_height"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="@dimen/search_layout_margin"
+        android:layout_marginVertical="@dimen/search_edit_margin"
         android:background="@drawable/rounding_background">
 
         <EditText
@@ -50,25 +49,25 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_gravity="start"
-            android:paddingTop="9dp"
-            android:paddingBottom="8dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="40dp"
-            android:drawablePadding="8dp"
+            android:paddingTop="@dimen/search_edit_padding_top"
+            android:paddingBottom="@dimen/search_edit_padding"
+            android:paddingStart="@dimen/search_edit_padding_start"
+            android:paddingEnd="@dimen/search_clear_btn_width"
+            android:drawablePadding="@dimen/search_edit_padding"
             android:hint="@string/search"
             android:maxLines="1"
             android:inputType="text"
             android:fontFamily="@font/ys_display_regular"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_16"
             android:textFontWeight="400"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/blue_corsor"
             app:drawableStartCompat="@drawable/search_icon"
             tools:ignore="Autofill,TextFields" />
 
         <ImageView
             style="@style/SearchEditText"
             android:id="@+id/clear_search"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/search_clear_btn_width"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:scaleType="center"
@@ -78,5 +77,14 @@
 
     </FrameLayout >
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/track_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_layout_margin"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/track_search_list_item"
+        tools:itemCount="10"/>
 
 </LinearLayout>
