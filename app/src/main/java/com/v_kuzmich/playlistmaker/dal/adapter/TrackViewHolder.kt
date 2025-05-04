@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.v_kuzmich.playlistmaker.R
 import com.v_kuzmich.playlistmaker.dal.model.Track
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class TrackViewHolder (
     parent: ViewGroup,
@@ -24,15 +26,16 @@ class TrackViewHolder (
     private val artwork: ImageView = itemView.findViewById(R.id.artwork)
 
     fun bind(item: Track) {
-        trackName.text = item.trackName
-        artistName.text = item.artistName
-        trackTime.text = item.trackTime
+        trackName.text = item.trackName.trim()
+        artistName.text = item.artistName.trim()
+        trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTimeMillis.toInt())
         Glide.with(itemView)
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)
             .centerCrop()
             .transform(RoundedCorners(dpToPx(2f, itemView.context)))
             .into(artwork)
+        artistName.requestLayout()
     }
 
     private fun dpToPx(dp: Float, context: Context): Int {

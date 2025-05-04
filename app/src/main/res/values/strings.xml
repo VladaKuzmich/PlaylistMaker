@@ -44,4 +44,7 @@
     <string name="tools_text_track_name">Название трека</string>
     <string name="tools_text_track_artist">Исполнитель</string>
     <string name="tools_text_track_time">5:31</string>
+    <string name="search_not_founded">Ничего не нашлось</string>
+    <string name="search_network_error">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="search_refresh">Обновить</string>
 </resources>
