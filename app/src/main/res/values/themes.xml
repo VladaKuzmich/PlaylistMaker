@@ -29,5 +29,10 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="SearchRefreshButton" parent="@style/SearchRefreshButtonBase">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/blackish_blue</item>
+    </style>
+
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
 </resources>

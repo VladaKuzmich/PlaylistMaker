@@ -48,6 +48,8 @@
             android:id="@+id/search_edit_text"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:layout_gravity="start"
             android:paddingTop="@dimen/search_edit_padding_top"
             android:paddingBottom="@dimen/search_edit_padding"
@@ -76,6 +78,75 @@
             tools:ignore="ContentDescription" />
 
     </FrameLayout >
+
+    <LinearLayout
+        android:id="@+id/not_founded_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_error_margin_top"
+        android:layout_marginHorizontal="@dimen/search_error_margin_hor"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/search_not_founded_error"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/search_error_message_margin_top"
+            android:textColor="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_medium"
+            android:textFontWeight="400"
+            android:textSize="@dimen/search_error_text_size"
+            android:text="@string/search_not_founded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/network_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_error_margin_top"
+        android:layout_marginHorizontal="@dimen/search_error_margin_hor"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/search_network_error"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/search_error_message_margin_top"
+            android:textColor="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_medium"
+            android:textFontWeight="400"
+            android:textSize="@dimen/search_error_text_size"
+            android:textAlignment="center"
+            android:text="@string/search_network_error" />
+
+        <Button
+            style="@style/SearchRefreshButton"
+            android:id="@+id/refresh_button"
+            android:width="@dimen/search_refresh_button_width"
+            android:height="@dimen/search_refresh_button_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/search_refresh_button_margin_top"
+            android:text="@string/search_refresh" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/track_list"

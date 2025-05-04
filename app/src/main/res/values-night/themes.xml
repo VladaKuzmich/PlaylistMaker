@@ -28,4 +28,9 @@
         <item name="drawableTint">@color/white</item>
         <item name="android:textSize">11sp</item>
     </style>
+
+    <style name="SearchRefreshButton" parent="@style/SearchRefreshButtonBase">
+        <item name="android:textColor">@color/blackish_blue</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
 </resources>
