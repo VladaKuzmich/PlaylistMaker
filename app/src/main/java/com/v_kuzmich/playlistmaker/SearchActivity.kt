@@ -32,6 +32,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
     private lateinit var notFoundedErrorLayout: LinearLayout
     private lateinit var networkErrorLayout: LinearLayout
+    private lateinit var trackListHistoryLayout: LinearLayout
+    private lateinit var trackList: RecyclerView
 
     private val itunesBaseUrl = "https://itunes.apple.com"
 
@@ -50,15 +52,20 @@ class SearchActivity : AppCompatActivity() {
 
         val backButton = findViewById<ImageButton>(R.id.back_button)
         val clearButton = findViewById<ImageView>(R.id.clear_search)
-        val trackList = findViewById<RecyclerView>(R.id.track_list)
+        val trackListHistory = findViewById<RecyclerView>(R.id.track_list_history)
         val refreshButton = findViewById<Button>(R.id.refresh_button)
+        val clearHistoryButton = findViewById<Button>(R.id.clear_history_button)
 
         searchEditText = findViewById(R.id.search_edit_text)
         notFoundedErrorLayout = findViewById(R.id.not_founded_error_layout)
         networkErrorLayout = findViewById(R.id.network_error_layout)
+        trackListHistoryLayout = findViewById(R.id.track_list_history_layout)
+        trackList = findViewById(R.id.track_list)
 
         adapter.tracks = tracks
         trackList.adapter = adapter
+
+        trackListHistory.adapter = (applicationContext as App).listHistoryHelper.adapterHistory
 
         backButton.setOnClickListener {
             finish()
@@ -85,6 +92,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchText = s.toString()
                 clearButton.visibility = clearButtonVisibility(s)
+                setHistoryVisibility(searchEditText.hasFocus() && s?.isEmpty() == true)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -101,6 +109,42 @@ class SearchActivity : AppCompatActivity() {
             }
             false
         }
+
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+            setHistoryVisibility(hasFocus && searchEditText.text.isEmpty())
+        }
+
+        clearHistoryButton.setOnClickListener {
+            (applicationContext as App).listHistoryHelper.clearTrackHistoryList()
+            setHistoryVisibility(false)
+        }
+    }
+
+    private fun setHistoryVisibility(visible: Boolean) {
+        val trackHistoryListSize = (applicationContext as App).listHistoryHelper.getTrackHistorySize()
+
+        if (visible && trackHistoryListSize > 0) {
+            setNetworkErrorLayoutVisible(false)
+            setNotFoundedErrorLayoutVisible(false)
+
+            trackList.visibility = View.GONE
+            trackListHistoryLayout.visibility = View.VISIBLE
+        } else {
+            trackList.visibility = View.VISIBLE
+            trackListHistoryLayout.visibility = View.GONE
+        }
+    }
+
+    private fun setNetworkErrorLayoutVisible(isVisible: Boolean) {
+        val visibility = if (isVisible) View.VISIBLE else View.GONE
+        if (networkErrorLayout.visibility != visibility)
+            networkErrorLayout.visibility = visibility
+    }
+
+    private fun setNotFoundedErrorLayoutVisible(isVisible: Boolean) {
+        val visibility = if (isVisible) View.VISIBLE else View.GONE
+        if (notFoundedErrorLayout.visibility != visibility)
+            notFoundedErrorLayout.visibility = visibility
     }
 
     private fun doSearch() = itunesService.search(searchEditText.text.toString()).enqueue(object : Callback<TracksResponse> {
@@ -140,19 +184,6 @@ class SearchActivity : AppCompatActivity() {
             setNetworkErrorLayoutVisible(false)
             setNotFoundedErrorLayoutVisible(true)
         }
-
-        private fun setNetworkErrorLayoutVisible(isVisible: Boolean) {
-            val visibility = if (isVisible) View.VISIBLE else View.GONE
-            if (networkErrorLayout.visibility != visibility)
-                networkErrorLayout.visibility = visibility
-        }
-
-        private fun setNotFoundedErrorLayoutVisible(isVisible: Boolean) {
-            val visibility = if (isVisible) View.VISIBLE else View.GONE
-            if (notFoundedErrorLayout.visibility != visibility)
-                notFoundedErrorLayout.visibility = visibility
-        }
-
     })
 
     override fun onSaveInstanceState(outState: Bundle) {

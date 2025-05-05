@@ -141,10 +141,50 @@
             style="@style/SearchRefreshButton"
             android:id="@+id/refresh_button"
             android:width="@dimen/search_refresh_button_width"
-            android:height="@dimen/search_refresh_button_height"
+            android:height="@dimen/search_buttons_height"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/search_refresh_button_margin_top"
             android:text="@string/search_refresh" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/track_list_history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_refresh_button_margin_top"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/search_history_title_height"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="@dimen/info_text_size"
+            android:textFontWeight="500"
+            android:textColor="?attr/colorOnPrimary"
+            android:text="@string/search_history_title"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/track_list_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/search_history_list_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/track_search_list_item"
+            tools:itemCount="10"/>
+
+        <Button
+            style="@style/SearchRefreshButton"
+            android:id="@+id/clear_history_button"
+            android:width="@dimen/clear_search_button_width"
+            android:height="@dimen/search_buttons_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/search_refresh_button_margin_top"
+            android:text="@string/clear_history_button" />
 
     </LinearLayout>
 

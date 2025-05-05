@@ -29,6 +29,11 @@
     <dimen name="search_error_message_margin_top">16dp</dimen>
     <dimen name="search_error_text_size">19sp</dimen>
     <dimen name="search_refresh_button_width">91dp</dimen>
-    <dimen name="search_refresh_button_height">36dp</dimen>
+    <dimen name="search_buttons_height">36dp</dimen>
     <dimen name="search_refresh_button_margin_top">24dp</dimen>
+    <dimen name="clear_search_button_width">148dp</dimen>
+    <dimen name="search_history_list_margin">8dp</dimen>
+    <dimen name="search_history_title_height">52dp</dimen>
+    <dimen name="info_text_size">19sp</dimen>
+    <dimen name="dark_theme_switch_padding">6dp</dimen>
 </resources>
