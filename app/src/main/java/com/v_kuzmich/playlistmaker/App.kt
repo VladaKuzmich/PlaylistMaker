@@ -7,7 +7,10 @@ import com.v_kuzmich.playlistmaker.helper.PlmPreferencesHelper
 
 class App : Application() {
 
-    var isDarkTheme = false
+    private var darkTheme = false
+
+    val isDarkTheme: Boolean
+        get() = darkTheme
 
     private lateinit var preferencesHelper: PlmPreferencesHelper
     lateinit var listHistoryHelper: ListHistoryHelper
@@ -18,20 +21,20 @@ class App : Application() {
         preferencesHelper = PlmPreferencesHelper(this)
         listHistoryHelper = ListHistoryHelper(preferencesHelper)
 
-        isDarkTheme = preferencesHelper.getDarkThemePreferences()
+        darkTheme = preferencesHelper.getDarkThemePreferences()
         setTheme()
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
-        isDarkTheme = darkThemeEnabled
+        darkTheme = darkThemeEnabled
         setTheme()
 
-        preferencesHelper.putAppThemePreferences(isDarkTheme)
+        preferencesHelper.putAppThemePreferences(darkTheme)
     }
 
     private fun setTheme() {
         AppCompatDelegate.setDefaultNightMode(
-            if (isDarkTheme) {
+            if (darkTheme) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
                 AppCompatDelegate.MODE_NIGHT_NO

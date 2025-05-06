@@ -1,6 +1,5 @@
 package com.v_kuzmich.playlistmaker.helper
 
-import android.annotation.SuppressLint
 import com.v_kuzmich.playlistmaker.dal.adapter.TrackAdapter
 import com.v_kuzmich.playlistmaker.dal.model.Track
 
@@ -16,7 +15,6 @@ class ListHistoryHelper(private val preferencesHelper: PlmPreferencesHelper) {
         adapterHistory.tracks = tracksHistory
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun addTrackToHistory(track: Track) {
         val historyList = preferencesHelper.getTrackListHistoryPreferences().filter { it.trackId != track.trackId }
         tracksHistory.clear()
@@ -26,7 +24,6 @@ class ListHistoryHelper(private val preferencesHelper: PlmPreferencesHelper) {
         preferencesHelper.putTrackListHistoryPreferences(tracksHistory.toTypedArray())
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun clearTrackHistoryList() {
         tracksHistory.clear()
         adapterHistory.notifyDataSetChanged()

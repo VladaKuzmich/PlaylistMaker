@@ -5,10 +5,6 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.v_kuzmich.playlistmaker.dal.model.Track
 
-const val PLM_PREFERENCES = "plm_preferences"
-const val DARK_THEME_KEY = "is_dark_theme"
-const val TRACK_LIST_HISTORY_KEY = "track_list_history"
-
 class PlmPreferencesHelper(context: Context) {
 
     private val sharedPreferences: SharedPreferences =
@@ -37,4 +33,9 @@ class PlmPreferencesHelper(context: Context) {
         return Gson().fromJson(json, Array<Track>::class.java)
     }
 
+    companion object {
+        private const val PLM_PREFERENCES = "plm_preferences"
+        private const val DARK_THEME_KEY = "is_dark_theme"
+        private const val TRACK_LIST_HISTORY_KEY = "track_list_history"
+    }
 }

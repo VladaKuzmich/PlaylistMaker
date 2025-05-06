@@ -1,6 +1,5 @@
 package com.v_kuzmich.playlistmaker
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -65,7 +64,8 @@ class SearchActivity : AppCompatActivity() {
         adapter.tracks = tracks
         trackList.adapter = adapter
 
-        trackListHistory.adapter = (applicationContext as App).listHistoryHelper.adapterHistory
+        val app = (applicationContext as? App) ?: return
+        trackListHistory.adapter = app.listHistoryHelper.adapterHistory
 
         backButton.setOnClickListener {
             finish()
@@ -115,13 +115,14 @@ class SearchActivity : AppCompatActivity() {
         }
 
         clearHistoryButton.setOnClickListener {
-            (applicationContext as App).listHistoryHelper.clearTrackHistoryList()
+            app.listHistoryHelper.clearTrackHistoryList()
             setHistoryVisibility(false)
         }
     }
 
     private fun setHistoryVisibility(visible: Boolean) {
-        val trackHistoryListSize = (applicationContext as App).listHistoryHelper.getTrackHistorySize()
+        val app = (applicationContext as? App) ?: return
+        val trackHistoryListSize = app.listHistoryHelper.getTrackHistorySize()
 
         if (visible && trackHistoryListSize > 0) {
             setNetworkErrorLayoutVisible(false)
@@ -148,7 +149,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun doSearch() = itunesService.search(searchEditText.text.toString()).enqueue(object : Callback<TracksResponse> {
-        @SuppressLint("NotifyDataSetChanged")
         override fun onResponse(call: Call<TracksResponse>, response: Response<TracksResponse>
         ) {
             //при инициации поиска скрываются сообщения об ошибках
@@ -206,7 +206,6 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun clearSearchList() {
         tracks.clear()
         adapter.notifyDataSetChanged()
