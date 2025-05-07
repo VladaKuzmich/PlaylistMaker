@@ -17,7 +17,7 @@
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="@dimen/search_back_btn_width"
+            android:layout_width="@dimen/back_button_width"
             android:layout_height="@dimen/search_header_height"
             android:src="@drawable/back_icon"
             android:backgroundTint="@android:color/transparent"
