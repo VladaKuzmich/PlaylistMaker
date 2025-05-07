@@ -52,39 +52,54 @@ class AudioplayerActivity : AppCompatActivity() {
 
         val trackName = findViewById<TextView>(R.id.track_name)
         val trackArtist = findViewById<TextView>(R.id.track_artist)
-
-        val textDuration = findViewById<TextView>(R.id.text_duration)
-        val textCollectionName = findViewById<TextView>(R.id.text_collection_name)
-        val labelCollectionName = findViewById<TextView>(R.id.label_collection_name)
         val textYear = findViewById<TextView>(R.id.text_year)
         val textGenre = findViewById<TextView>(R.id.text_genre)
         val textCountry = findViewById<TextView>(R.id.text_country)
 
-        val imageCover = findViewById<ImageView>(R.id.image_cover)
-
         trackName.text = track.trackName
         trackArtist.text = track.artistName
-        textDuration.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis.toInt())
-
-        if (track.collectionName.isEmpty()) {
-            textCollectionName.visibility = View.GONE
-            labelCollectionName.visibility = View.GONE
-        } else {
-            textCollectionName.text = track.collectionName
-        }
-
         textYear.text = track.releaseDate.substring(0, 4)
         textGenre.text = track.primaryGenreName
         textCountry.text = track.country
 
+        setTrackDuration(track.trackTimeMillis)
+        setCollectionName(track.collectionName)
+        setCover(track.artworkUrl100)
+    }
+
+    private fun setCover(artworkUrl100: String) {
+        val imageCover = findViewById<ImageView>(R.id.image_cover)
+
         val uiHelper = UiHelper()
 
         Glide.with(this)
-            .load(getCoverArtwork(track.artworkUrl100))
+            .load(getCoverArtwork(artworkUrl100))
             .placeholder(R.drawable.placeholder)
-            .centerCrop()
+            .fitCenter()
             .transform(RoundedCorners(uiHelper.dpToPx(8f, this)))
             .into(imageCover)
+    }
+
+    private fun setCollectionName(collectionName: String) {
+        val textCollectionName = findViewById<TextView>(R.id.text_collection_name)
+        val labelCollectionName = findViewById<TextView>(R.id.label_collection_name)
+
+        if (collectionName.isEmpty()) {
+            textCollectionName.visibility = View.GONE
+            labelCollectionName.visibility = View.GONE
+        } else {
+            textCollectionName.text = collectionName
+        }
+    }
+
+    private fun setTrackDuration(trackTimeMillis: String) {
+        val textDuration = findViewById<TextView>(R.id.text_duration)
+
+        try {
+            textDuration.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis.toInt())
+        } catch (e: Exception) {
+            textDuration.text = "--:--"
+        }
     }
 
     private fun getCoverArtwork(artworkUrl100: String) = artworkUrl100.replaceAfterLast('/',COVER_TAIL)
