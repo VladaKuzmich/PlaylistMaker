@@ -1,7 +1,5 @@
 package com.v_kuzmich.playlistmaker.dal.adapter
 
-import android.content.Context
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.v_kuzmich.playlistmaker.R
 import com.v_kuzmich.playlistmaker.dal.model.Track
+import com.v_kuzmich.playlistmaker.helper.UiHelper
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -26,6 +25,8 @@ class TrackViewHolder (
     private val artwork: ImageView = itemView.findViewById(R.id.artwork)
 
     fun bind(item: Track) {
+        val uiHelper = UiHelper()
+
         trackName.text = item.trackName.trim()
         artistName.text = item.artistName.trim()
         trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTimeMillis.toInt())
@@ -33,15 +34,9 @@ class TrackViewHolder (
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .transform(RoundedCorners(dpToPx(2f, itemView.context)))
+            .transform(RoundedCorners(uiHelper.dpToPx(2f, itemView.context)))
             .into(artwork)
         artistName.requestLayout()
     }
 
-    private fun dpToPx(dp: Float, context: Context): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp,
-            context.resources.displayMetrics).toInt()
-    }
 }

@@ -38,15 +38,11 @@
 
     </LinearLayout>
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_theme"
         style="@style/SettingsMenuItem"
-        android:thumbTint="?attr/colorSecondaryVariant"
-        android:trackTint="?attr/colorSecondaryVariant"
-        android:paddingEnd="6dp"
-        android:switchMinWidth="56dp"
-        android:text="@string/dark_theme"
-        tools:ignore="InefficientWeight,UseSwitchCompatOrMaterialXml" />
+        android:paddingEnd="@dimen/dark_theme_switch_padding"
+        android:text="@string/dark_theme" />
 
     <TextView
         android:id="@+id/share"

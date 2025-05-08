@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,13 @@ class SettingsActivity : AppCompatActivity() {
         val shareButton = findViewById<TextView>(R.id.share)
         val supportButton = findViewById<TextView>(R.id.support)
         val userAgreementButton = findViewById<TextView>(R.id.user_agreement)
+        val switchTheme = findViewById<SwitchMaterial>(R.id.switch_theme)
+
+        switchTheme.setOnCheckedChangeListener{ _, checked ->
+            (applicationContext as App).switchTheme(checked)
+        }
+
+        switchTheme.isChecked = (applicationContext as App).isDarkTheme
 
         backButton.setOnClickListener {
             finish()

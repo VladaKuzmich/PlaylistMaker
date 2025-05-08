@@ -47,4 +47,20 @@
     <string name="search_not_founded">Ничего не нашлось</string>
     <string name="search_network_error">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="search_refresh">Обновить</string>
+    <string name="search_history_title">Вы искали</string>
+    <string name="clear_history_button">Очистить историю</string>
+    <string name="country_label">Страна</string>
+    <string name="genre_label">Жанр</string>
+    <string name="year_label">Год</string>
+    <string name="collection_label">Альбом</string>
+    <string name="duration_label">Длительность</string>
+    <string name="country_text_tools">Великобритания</string>
+    <string name="genre_text_tools">Rock</string>
+    <string name="year_text_tools">1965</string>
+    <string name="collection_text_tools">Yesterday (Remastered 2009)</string>
+    <string name="duration_text_tools">5:35</string>
+    <string name="track_time_text_tools">0:30</string>
+    <string name="artist_text_tools">The Beatles</string>
+    <string name="track_name_text_tools">Yesterday (Remastered 2009)</string>
+    <string name="cover_text_tools">Обложка</string>
 </resources>
