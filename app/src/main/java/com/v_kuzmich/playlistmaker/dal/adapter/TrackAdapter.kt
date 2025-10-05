@@ -1,6 +1,8 @@
 package com.v_kuzmich.playlistmaker.dal.adapter
 
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -12,6 +14,9 @@ class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
 
     var tracks = ArrayList<Track>()
 
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(parent)
     }
@@ -20,11 +25,13 @@ class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
         val track = tracks[position]
         holder.bind(track)
         holder.itemView.setOnClickListener {
-            (holder.itemView.context.applicationContext as App).listHistoryHelper.addTrackToHistory(track)
+            if (clickDebounce()) {
+                (holder.itemView.context.applicationContext as App).listHistoryHelper.addTrackToHistory(track)
 
-            val intent = Intent(holder.itemView.context, AudioplayerActivity::class.java)
-            intent.putExtra(TRACK_KEY, Gson().toJson(track))
-            holder.itemView.context.startActivity(intent)
+                val intent = Intent(holder.itemView.context, AudioplayerActivity::class.java)
+                intent.putExtra(TRACK_KEY, Gson().toJson(track))
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 
@@ -32,7 +39,17 @@ class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
         return tracks.size
     }
 
+    private fun clickDebounce() : Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
     companion object {
         const val TRACK_KEY = "track"
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }

@@ -2,6 +2,8 @@ package com.v_kuzmich.playlistmaker
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -12,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.v_kuzmich.playlistmaker.api.ItunesApi
@@ -33,6 +36,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var networkErrorLayout: LinearLayout
     private lateinit var trackListHistoryLayout: LinearLayout
     private lateinit var trackList: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var handler: Handler
 
     private val itunesBaseUrl = "https://itunes.apple.com"
 
@@ -44,6 +49,8 @@ class SearchActivity : AppCompatActivity() {
     private val itunesService = retrofit.create(ItunesApi::class.java)
     private val tracks = ArrayList<Track>()
     private val adapter = TrackAdapter()
+
+    private val searchRunnable = Runnable { doSearch() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +67,9 @@ class SearchActivity : AppCompatActivity() {
         networkErrorLayout = findViewById(R.id.network_error_layout)
         trackListHistoryLayout = findViewById(R.id.track_list_history_layout)
         trackList = findViewById(R.id.track_list)
+        progressBar = findViewById(R.id.progress_bar)
+
+        handler = Handler(Looper.getMainLooper())
 
         adapter.tracks = tracks
         trackList.adapter = adapter
@@ -76,7 +86,8 @@ class SearchActivity : AppCompatActivity() {
 
             clearSearchList()
 
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
@@ -93,6 +104,7 @@ class SearchActivity : AppCompatActivity() {
                 searchText = s.toString()
                 clearButton.visibility = clearButtonVisibility(s)
                 setHistoryVisibility(searchEditText.hasFocus() && s?.isEmpty() == true)
+                searchDebounce()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -102,13 +114,13 @@ class SearchActivity : AppCompatActivity() {
 
         searchEditText.addTextChangedListener(textWatcher)
 
-        searchEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                doSearch()
-                true
-            }
-            false
-        }
+        //searchEditText.setOnEditorActionListener { _, actionId, _ ->
+        //    if (actionId == EditorInfo.IME_ACTION_DONE) {
+        //        doSearch()
+        //        true
+        //    }
+        //    false
+        //}
 
         searchEditText.setOnFocusChangeListener { _, hasFocus ->
             setHistoryVisibility(hasFocus && searchEditText.text.isEmpty())
@@ -148,43 +160,59 @@ class SearchActivity : AppCompatActivity() {
             notFoundedErrorLayout.visibility = visibility
     }
 
-    private fun doSearch() = itunesService.search(searchEditText.text.toString()).enqueue(object : Callback<TracksResponse> {
-        override fun onResponse(call: Call<TracksResponse>, response: Response<TracksResponse>
-        ) {
-            //при инициации поиска скрываются сообщения об ошибках
-            setNetworkErrorLayoutVisible(false)
-            setNotFoundedErrorLayoutVisible(false)
+    private fun doSearch() {
+        progressBar.visibility = View.VISIBLE
+        trackList.visibility = View.GONE
 
-            if (response.code() == 200) {
-                tracks.clear()
-                if (response.body()?.results?.isNotEmpty() == true) {
-                    tracks.addAll(response.body()?.results!!)
-                    adapter.notifyDataSetChanged()
+        itunesService.search(searchEditText.text.toString())
+        .enqueue(object : Callback<TracksResponse> {
+            override fun onResponse(
+                call: Call<TracksResponse>, response: Response<TracksResponse>
+            ) {
+                progressBar.visibility = View.GONE
+
+                //при инициации поиска скрываются сообщения об ошибках
+                setNetworkErrorLayoutVisible(false)
+                setNotFoundedErrorLayoutVisible(false)
+
+                if (response.code() == 200) {
+                    tracks.clear()
+                    if (response.body()?.results?.isNotEmpty() == true) {
+                        trackList.visibility = View.VISIBLE
+                        tracks.addAll(response.body()?.results!!)
+                        adapter.notifyDataSetChanged()
+                    }
+                    if (tracks.isEmpty()) {
+                        showNotFoundedError()
+                    }
+                } else {
+                    showNetworkError()
                 }
-                if (tracks.isEmpty()) {
-                    showNotFoundedError()
-                }
-            } else {
+            }
+
+            override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
+                progressBar.visibility = View.GONE
                 showNetworkError()
             }
-        }
 
-        override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
-            showNetworkError()
-        }
+            private fun showNetworkError() {
+                clearSearchList()
+                setNotFoundedErrorLayoutVisible(false)
+                setNetworkErrorLayoutVisible(true)
+            }
 
-        private fun showNetworkError() {
-            clearSearchList()
-            setNotFoundedErrorLayoutVisible(false)
-            setNetworkErrorLayoutVisible(true)
-        }
+            private fun showNotFoundedError() {
+                clearSearchList()
+                setNetworkErrorLayoutVisible(false)
+                setNotFoundedErrorLayoutVisible(true)
+            }
+        })
+    }
 
-        private fun showNotFoundedError() {
-            clearSearchList()
-            setNetworkErrorLayoutVisible(false)
-            setNotFoundedErrorLayoutVisible(true)
-        }
-    })
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -214,5 +242,6 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         private const val SEARCH_TEXT = "SEARCH_TEXT"
         private const val SEARCH_TEXT_DEFAULT = ""
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
