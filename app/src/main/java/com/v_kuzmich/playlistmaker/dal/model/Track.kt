@@ -9,5 +9,6 @@ data class Track(
     val primaryGenreName: String,   // Жанр трека
     val country: String,            // Страна исполнителя
     var trackTimeMillis: String,    // Продолжительность трека
-    val artworkUrl100: String       // Ссылка на изображение обложки
+    val artworkUrl100: String,      // Ссылка на изображение обложки
+    val previewUrl: String          // Ссылка на отрывок трека
 )
