@@ -1,6 +1,9 @@
 package com.v_kuzmich.playlistmaker
 
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -18,18 +21,32 @@ import java.util.Locale
 class AudioplayerActivity : AppCompatActivity() {
 
     private lateinit var trackJson: String
+    private lateinit var playTrackButton: ImageButton
+    private lateinit var trackTimeTextView: TextView
+
+    private lateinit var mainThreadHandler: Handler
+    private var playerState = STATE_PLAYER_DEFAULT
+    private var mediaPlayer = MediaPlayer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audioplayer)
 
+        val backButton = findViewById<ImageButton>(R.id.back_button)
+        trackTimeTextView = findViewById(R.id.track_time)
+        playTrackButton = findViewById(R.id.play_track_button)
+
+        mainThreadHandler = Handler(Looper.getMainLooper())
+
         trackJson = intent.getStringExtra(TrackAdapter.TRACK_KEY) ?: ""
         fillTrackInfo()
 
-        val backButton = findViewById<ImageButton>(R.id.back_button)
-
         backButton.setOnClickListener {
             finish()
+        }
+
+        playTrackButton.setOnClickListener {
+            playTrackButtonClick()
         }
     }
 
@@ -45,6 +62,16 @@ class AudioplayerActivity : AppCompatActivity() {
         trackJson = savedInstanceState.getString(TRACK_TEXT_KEY, "")
 
         fillTrackInfo()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pausePlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 
     private fun fillTrackInfo() {
@@ -65,6 +92,8 @@ class AudioplayerActivity : AppCompatActivity() {
         setTrackDuration(track.trackTimeMillis)
         setCollectionName(track.collectionName)
         setCover(track.artworkUrl100)
+
+        preparePlayer(track.previewUrl)
     }
 
     private fun setCover(artworkUrl100: String) {
@@ -104,8 +133,77 @@ class AudioplayerActivity : AppCompatActivity() {
 
     private fun getCoverArtwork(artworkUrl100: String) = artworkUrl100.replaceAfterLast('/',COVER_TAIL)
 
+    private fun preparePlayer(url: String) {
+        mediaPlayer.setDataSource(url)
+        mediaPlayer.prepareAsync()
+
+        mediaPlayer.setOnPreparedListener {
+            playerState = STATE_PLAYER_PREPARED
+        }
+
+        mediaPlayer.setOnCompletionListener {
+            setTimerValue(0)
+            mediaPlayer.seekTo(0)
+            mainThreadHandler.removeCallbacks(setPlayTime())
+            playTrackButton.setBackgroundResource(R.drawable.play_track_button)
+            playerState = STATE_PLAYER_PREPARED
+        }
+    }
+
+    private fun startPlayer() {
+        mediaPlayer.start()
+
+        mainThreadHandler.post(
+            setPlayTime()
+        )
+
+        playTrackButton.setBackgroundResource(R.drawable.pause_track_button)
+        playerState = STATE_PLAYER_PLAYING
+    }
+
+    private fun pausePlayer() {
+        mediaPlayer.pause()
+        mainThreadHandler.removeCallbacks(setPlayTime())
+        playTrackButton.setBackgroundResource(R.drawable.play_track_button)
+        playerState = STATE_PLAYER_PAUSED
+    }
+
+    private fun playTrackButtonClick() {
+        when(playerState) {
+            STATE_PLAYER_PLAYING -> {
+                pausePlayer()
+            }
+            STATE_PLAYER_PREPARED, STATE_PLAYER_PAUSED -> {
+                startPlayer()
+            }
+        }
+    }
+
+    private fun setPlayTime() : Runnable {
+        return object : Runnable {
+            override fun run() {
+                if (playerState != STATE_PLAYER_PLAYING)
+                    return
+
+                setTimerValue(mediaPlayer.currentPosition)
+                mainThreadHandler.postDelayed(this, TIMER_DELAY)
+            }
+        }
+    }
+
+    private fun setTimerValue(msec : Int){
+        trackTimeTextView.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(msec)
+    }
+
     companion object {
         private const val TRACK_TEXT_KEY = "track_text"
         private const val COVER_TAIL = "512x512bb.jpg"
+
+        private const val TIMER_DELAY = 20L
+
+        private const val STATE_PLAYER_DEFAULT = 0
+        private const val STATE_PLAYER_PREPARED = 1
+        private const val STATE_PLAYER_PLAYING = 2
+        private const val STATE_PLAYER_PAUSED = 3
     }
 }
