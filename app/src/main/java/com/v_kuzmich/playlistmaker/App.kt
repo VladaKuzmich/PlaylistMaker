@@ -2,8 +2,8 @@ package com.v_kuzmich.playlistmaker
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.v_kuzmich.playlistmaker.helper.ListHistoryHelper
-import com.v_kuzmich.playlistmaker.helper.PlmPreferencesHelper
+import com.v_kuzmich.playlistmaker.presentation.helper.ListHistoryHelper
+import com.v_kuzmich.playlistmaker.presentation.helper.PlmPreferencesHelper
 
 class App : Application() {
 
