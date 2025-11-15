@@ -1,0 +1,61 @@
+package com.v_kuzmich.playlistmaker.presentation.adpter
+
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.v_kuzmich.playlistmaker.Creator.provideTracksHistoryInteractor
+import com.v_kuzmich.playlistmaker.domain.impl.TracksHistoryInteractorImpl
+import com.v_kuzmich.playlistmaker.domain.models.Track
+import com.v_kuzmich.playlistmaker.ui.audioplayer.AudioplayerActivity
+import com.v_kuzmich.playlistmaker.presentation.TrackViewHolder
+
+
+class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
+
+    var tracks = ArrayList<Track>()
+
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+
+    private lateinit var tracksHistoryInteractor: TracksHistoryInteractorImpl
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
+        return TrackViewHolder(parent)
+    }
+
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+        val track = tracks[position]
+        holder.bind(track)
+        holder.itemView.setOnClickListener {
+            if (clickDebounce()) {
+                tracksHistoryInteractor = provideTracksHistoryInteractor(holder.itemView.context)
+                tracksHistoryInteractor.addTrackToHistory(track)
+
+                val intent = Intent(holder.itemView.context, AudioplayerActivity::class.java)
+                intent.putExtra(TRACK_KEY, Gson().toJson(track))
+                holder.itemView.context.startActivity(intent)
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return tracks.size
+    }
+
+    private fun clickDebounce() : Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    companion object {
+        const val TRACK_KEY = "track"
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+    }
+}

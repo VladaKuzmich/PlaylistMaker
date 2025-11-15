@@ -2,8 +2,7 @@ package com.v_kuzmich.playlistmaker
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.v_kuzmich.playlistmaker.helper.ListHistoryHelper
-import com.v_kuzmich.playlistmaker.helper.PlmPreferencesHelper
+import com.v_kuzmich.playlistmaker.presentation.helper.PlmPreferencesHelper
 
 class App : Application() {
 
@@ -13,13 +12,11 @@ class App : Application() {
         get() = darkTheme
 
     private lateinit var preferencesHelper: PlmPreferencesHelper
-    lateinit var listHistoryHelper: ListHistoryHelper
 
     override fun onCreate() {
         super.onCreate()
 
         preferencesHelper = PlmPreferencesHelper(this)
-        listHistoryHelper = ListHistoryHelper(preferencesHelper)
 
         darkTheme = preferencesHelper.getDarkThemePreferences()
         setTheme()
