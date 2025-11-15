@@ -16,10 +16,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.v_kuzmich.playlistmaker.App
+import com.v_kuzmich.playlistmaker.Creator.provideTracksHistoryInteractor
 import com.v_kuzmich.playlistmaker.Creator.provideTracksInteractor
 import com.v_kuzmich.playlistmaker.R
 import com.v_kuzmich.playlistmaker.domain.api.TracksInteractor
+import com.v_kuzmich.playlistmaker.domain.impl.TracksHistoryInteractorImpl
 import com.v_kuzmich.playlistmaker.domain.impl.TracksInteractorImpl
 import com.v_kuzmich.playlistmaker.domain.models.Track
 import com.v_kuzmich.playlistmaker.presentation.adpter.TrackAdapter
@@ -32,11 +33,13 @@ class TrackSearchActivity : AppCompatActivity() {
     private lateinit var notFoundedErrorLayout: LinearLayout
     private lateinit var networkErrorLayout: LinearLayout
     private lateinit var trackListHistoryLayout: LinearLayout
+    private lateinit var trackListHistory: RecyclerView
     private lateinit var trackList: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var handler: Handler
 
     private lateinit var tracksInteractor: TracksInteractorImpl
+    private lateinit var tracksHistoryInteractor: TracksHistoryInteractorImpl
 
     private val tracks = ArrayList<Track>()
     private val adapter = TrackAdapter()
@@ -48,10 +51,10 @@ class TrackSearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         tracksInteractor = provideTracksInteractor()
+        tracksHistoryInteractor = provideTracksHistoryInteractor(this)
 
         val backButton = findViewById<ImageButton>(R.id.back_button)
         val clearButton = findViewById<ImageView>(R.id.clear_search)
-        val trackListHistory = findViewById<RecyclerView>(R.id.track_list_history)
         val refreshButton = findViewById<Button>(R.id.refresh_button)
         val clearHistoryButton = findViewById<Button>(R.id.clear_history_button)
 
@@ -61,14 +64,14 @@ class TrackSearchActivity : AppCompatActivity() {
         trackListHistoryLayout = findViewById(R.id.track_list_history_layout)
         trackList = findViewById(R.id.track_list)
         progressBar = findViewById(R.id.progress_bar)
+        trackListHistory = findViewById(R.id.track_list_history)
 
         handler = Handler(Looper.getMainLooper())
 
         adapter.tracks = tracks
         trackList.adapter = adapter
 
-        val app = (applicationContext as? App) ?: return
-        trackListHistory.adapter = app.listHistoryHelper.adapterHistory
+        trackListHistory.adapter = tracksHistoryInteractor.getTrackHistoryAdapter()
 
         backButton.setOnClickListener {
             finish()
@@ -112,14 +115,16 @@ class TrackSearchActivity : AppCompatActivity() {
         }
 
         clearHistoryButton.setOnClickListener {
-            app.listHistoryHelper.clearTrackHistoryList()
+            tracksHistoryInteractor.clearTrackHistoryList()
             setHistoryVisibility(false)
         }
     }
 
     private fun setHistoryVisibility(visible: Boolean) {
-        val app = (applicationContext as? App) ?: return
-        val trackHistoryListSize = app.listHistoryHelper.getTrackHistorySize()
+        val trackHistoryListSize = tracksHistoryInteractor.getTrackHistoryListSize()
+        runOnUiThread {
+            trackListHistory.adapter?.notifyDataSetChanged()
+        }
 
         if (visible && trackHistoryListSize > 0) {
             setNetworkErrorLayoutVisible(false)
@@ -222,7 +227,9 @@ class TrackSearchActivity : AppCompatActivity() {
 
     private fun clearSearchList() {
         tracks.clear()
-        adapter.notifyDataSetChanged()
+        runOnUiThread {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     companion object {

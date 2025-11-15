@@ -6,7 +6,8 @@ import android.os.Looper
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.v_kuzmich.playlistmaker.App
+import com.v_kuzmich.playlistmaker.Creator.provideTracksHistoryInteractor
+import com.v_kuzmich.playlistmaker.domain.impl.TracksHistoryInteractorImpl
 import com.v_kuzmich.playlistmaker.domain.models.Track
 import com.v_kuzmich.playlistmaker.ui.audioplayer.AudioplayerActivity
 import com.v_kuzmich.playlistmaker.presentation.TrackViewHolder
@@ -19,6 +20,8 @@ class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
 
+    private lateinit var tracksHistoryInteractor: TracksHistoryInteractorImpl
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(parent)
     }
@@ -28,7 +31,8 @@ class TrackAdapter() : RecyclerView.Adapter<TrackViewHolder> () {
         holder.bind(track)
         holder.itemView.setOnClickListener {
             if (clickDebounce()) {
-                (holder.itemView.context.applicationContext as App).listHistoryHelper.addTrackToHistory(track)
+                tracksHistoryInteractor = provideTracksHistoryInteractor(holder.itemView.context)
+                tracksHistoryInteractor.addTrackToHistory(track)
 
                 val intent = Intent(holder.itemView.context, AudioplayerActivity::class.java)
                 intent.putExtra(TRACK_KEY, Gson().toJson(track))
